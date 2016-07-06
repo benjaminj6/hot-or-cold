@@ -10,17 +10,17 @@ $(document).ready(function(){
   	/*--- Hide information modal box ---*/
   	$("a.close").click(function(){
   		$(".overlay").fadeOut(1000);
-  	});
+  	});	
 
-  /*--- GENERAL FUNCTIONS ---*/	
-
-		/** ---COMPLETED---
+	/** ---COMPLETED---
 		 * randomNumber() generates a random number
 		 * b/w 1 and 100.
 		 */
 		function randomNumber() {
 			return Math.ceil(Math.random() * 100);
 		};
+
+	/*--- TESTS TO BE RUN IN VALIDATE FUNCTION ---*/
 
 		/** ---COMPLETED---
 		 * checkHistoryFor() Checks to see if a number 
@@ -29,7 +29,7 @@ $(document).ready(function(){
 		 * returns: FALSE if number is found.
 		 * 					TRUE if not found.
 		 */
-		function checkHistoryFor(number) {
+		function checkGuessListFor(number) {
 			guessListItems = [];
 			
 			$('.guessListItem').each(function() {
@@ -46,9 +46,8 @@ $(document).ready(function(){
 			return true;
 		};
 		
-
 		/** ---COMPLETED---
-		 * checkGuessNumber() checks that a guessValue
+		 * testGuess() checks that a guessValue
 		 * falls within 1 and 100 AND is a whole number.
 		 * returns: FALSE if criteria are not met
 		 * 					TRUE otherwise
@@ -64,26 +63,33 @@ $(document).ready(function(){
 			}
 		};
 
-		/** ---COMPLETED---
-		 * validate() ensures user's guess is a valid
-		 * 		option.
-		 * parameter: userGuess, correctAnswer
-		 * returns TRUE if user's guess is valid.
-		 *		valid = guess not: correct number, previously
-		 *						previously guessed item, OR invalid number type
-		 * returns FALSE otherwise.
-		 */
-		function validate(guess, correctAnswer) {
-			if(checkHistoryFor(guess) == false ||
-					checkHistoryFor(correctAnswer) == false ||
-					testGuess(guess) == false) {
-				alert('Please choose a valid number');
-			} else {
-		 		//Run the code to play game;
-			}
-		};
 
-		console.log(validate(7, 6))
+  /*--- VALIDATE FUNCTION ---*/
+
+		/** ---COMPLETED---
+			 * validate() ensures user's guess is a valid
+			 * 		option.
+			 * parameter: userGuess, correctAnswer
+			 * returns TRUE if user's guess is valid.
+			 *		valid = guess not: correct number, previously
+			 *						previously guessed item, OR invalid number type
+			 * returns FALSE otherwise.
+			 */
+			function validate(guess, correctAnswer) {
+				if(checkGuessListFor(guess) == false ||
+						testGuess(guess) == false) {
+					alert('Please choose a valid number');
+				} else if (checkGuessListFor(correctAnswer) == false) {
+					alert('You\'ve already guessed the correct answer! ' +
+						'Click \'New Game\' to play again');
+				} else {
+			 		//Run the code to play game;
+			 		return guessFeedback(guess, correctAnswer);
+				}
+			};
+
+	/*--- FUNCTIONS THAT RUN THE GAME ---*/
+
 		/** ---COMPLETED---
 		 * guessEvaluate() compares the user's guess to the 
 		 * correct answer and returns a statement about how far
@@ -120,8 +126,6 @@ $(document).ready(function(){
 		 */
 		function guessingGame(userGuess, correctAnswer) {
 			//Checks guess for validity using validateGuess()
-			//If valid guess then runs guessEvaluate()
-			//if correct answer then ends the game
 			//changes h2#feedback to reflect guessEvaluate() value;
 			//appends the userGuess to ul#guessList 
 			//adds 1 to counter (span#count)
