@@ -26,8 +26,8 @@ $(document).ready(function(){
 		 * checkHistoryFor() Checks to see if a number 
 		 * 		is in ul#guessList
 		 * parameter: number being searched for
-		 * return: false if number is found.
-		 * 				true if not found.
+		 * returns: FALSE if number is found.
+		 * 					TRUE if not found.
 		 */
 		function checkHistoryFor(number) {
 			guessListItems = [];
@@ -37,55 +37,94 @@ $(document).ready(function(){
 			});
 			
 			for(var i = 0; i < guessListItems.length; i++) {
-				currentListItem = parseInt(guessListItems[i]);
+				var currentListItem = parseInt(guessListItems[i]);
 				if (currentListItem == number) {
 					return false;
-				} else {
-					return true;
-				}
+				} 
 			}
+
+			return true;
 		};
 		
-		/** ---COMPLETED---
-		 * checkGuessRange() checks that a guessValue
-		 * falls within 1 and 100.
-		 */
-		function checkGuessRange(guessValue) {
-			guessValue = parseFloat(guessValue);
 
-			if (guessValue < 1 || guessValue > 100) {
+		/** ---COMPLETED---
+		 * checkGuessNumber() checks that a guessValue
+		 * falls within 1 and 100 AND is a whole number.
+		 * returns: FALSE if criteria are not met
+		 * 					TRUE otherwise
+		 */
+		function testGuess(guess) {
+			guess = parseFloat(guess);
+
+			if (guess < 1 || guess > 100 ||
+					guess % 1 != 0) {
 				return false;
 			} else { 
 				return true; 
 			}
 		};
 
-		console.log(checkGuessRange(3));
-
-		/** ---TO DO---
-		 * checkGuessValidity() ensures user's guess is a valid
+		/** ---COMPLETED---
+		 * validate() ensures user's guess is a valid
 		 * 		option.
+		 * parameter: userGuess, correctAnswer
+		 * returns TRUE if user's guess is valid.
+		 *		valid = guess not: correct number, previously
+		 *						previously guessed item, OR invalid number type
+		 * returns FALSE otherwise.
 		 */
-		function checkGuessValidity() {
-
+		function validate(guess, correctAnswer) {
+			if(checkHistoryFor(guess) == false ||
+					checkHistoryFor(correctAnswer) == false ||
+					testGuess(guess) == false) {
+				alert('Please choose a valid number');
+			} else {
+		 		//Run the code to play game;
+			}
 		};
+
+		console.log(validate(7, 6))
+		/** ---COMPLETED---
+		 * guessEvaluate() compares the user's guess to the 
+		 * correct answer and returns a statement about how far
+		 * user is from correct answer.
+		 * parameter: userGuess, correctAnswer
+		 * return:
+		 *		If user guesses correct number
+		 *		If user is < 5 from number: 'Very hot'
+		 *		If user is < 10 from number: 'Hot' 
+		 *		If user is < 20 from number: 'Kinda hot 
+		 *		If user is < 50 from number: 'Cold' 
+		 *		If user is > 50 from number: 'Very Cold' 
+		 */
+		function guessFeedback(userGuess, correctAnswer) {
+			var guessDifference = Math.abs(correctAnswer - userGuess);
+
+			if(guessDifference == 0 ) {
+				return 'You won. Click "New Game" to play again ';
+			} else if (guessDifference < 5) {
+				return 'Very hot';
+			} else if (guessDifference < 10) {
+				return 'Hot';
+			} else if (guessDifference < 20) {
+				return 'Kinda hot';
+			} else if (guessDifference < 50) {
+				return 'Cold';
+			} else {
+				return 'Very Cold';
+			}
+		}
 
 		/** ---TO DO---
 		 * guessingGame() runs the guessing Game
 		 */
-		function guessingGame(guess, correctNumber) {
-			/**
-				*Compares and evaluates user's guess 
-			 	*and changes h2#feedback to reflect result 
-			 	*/
-					/*--- If user guesses correct number ---*/
-					/*--- If user is < 5 from number: 'Very hot' ---*/
-					/*--- If user is < 10 from number: 'Hot' ---*/
-					/*--- If user is < 20 from number: 'Kinda hot ---*/
-					/*--- If user is < 50 from number: 'Cold' ---*/
-					/*--- If user is > 50 from number: 'Very Cold' ---*/
-			/*--- Counter ---*/
-			/*--- Include numbers that have been submitted ---*/
+		function guessingGame(userGuess, correctAnswer) {
+			//Checks guess for validity using validateGuess()
+			//If valid guess then runs guessEvaluate()
+			//if correct answer then ends the game
+			//changes h2#feedback to reflect guessEvaluate() value;
+			//appends the userGuess to ul#guessList 
+			//adds 1 to counter (span#count)
 	  };
 
   /** ---TO DO---
