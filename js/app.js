@@ -18,7 +18,7 @@ $(document).ready(function(){
 		 */
 		function randomNumber() {
 			return Math.ceil(Math.random() * 100);
-		};
+		}
 
 	/*--- TESTS TO BE RUN IN VALIDATE FUNCTION ---*/
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
 			}
 
 			return true;
-		};
+		}
 		
 		/** ---COMPLETED---
 		 * testGuess() checks that a guessValue
@@ -56,39 +56,14 @@ $(document).ready(function(){
 			guess = parseFloat(guess);
 
 			if (guess < 1 || guess > 100 ||
-					guess % 1 != 0) {
+					guess % 1 !== 0) {
 				return false;
 			} else { 
 				return true; 
 			}
-		};
+		}
 
-
-  /*--- VALIDATE FUNCTION ---*/
-
-		/** ---COMPLETED---
-			 * validate() ensures user's guess is a valid
-			 * 		option.
-			 * parameter: userGuess, correctAnswer
-			 * returns TRUE if user's guess is valid.
-			 *		valid = guess not: correct number, previously
-			 *						previously guessed item, OR invalid number type
-			 * returns FALSE otherwise.
-			 */
-			function validate(guess, correctAnswer) {
-				if(checkGuessListFor(guess) == false ||
-						testGuess(guess) == false) {
-					alert('Please choose a valid number');
-				} else if (checkGuessListFor(correctAnswer) == false) {
-					alert('You\'ve already guessed the correct answer! ' +
-						'Click \'New Game\' to play again');
-				} else {
-			 		//Run the code to play game;
-			 		return guessFeedback(guess, correctAnswer);
-				}
-			};
-
-	/*--- FUNCTIONS THAT RUN THE GAME ---*/
+	/*--- FUNCTIONS THAT RUN IF ANSWER PASSES VALIDATION ---*/
 
 		/** ---COMPLETED---
 		 * guessEvaluate() compares the user's guess to the 
@@ -103,10 +78,10 @@ $(document).ready(function(){
 		 *		If user is < 50 from number: 'Cold' 
 		 *		If user is > 50 from number: 'Very Cold' 
 		 */
-		function guessFeedback(userGuess, correctAnswer) {
-			var guessDifference = Math.abs(correctAnswer - userGuess);
+		function guessFeedback(guess, correctAnswer) {
+			var guessDifference = Math.abs(correctAnswer - guess);
 
-			if(guessDifference == 0 ) {
+			if(guessDifference === 0 ) {
 				return 'You won. Click "New Game" to play again ';
 			} else if (guessDifference < 5) {
 				return 'Very hot';
@@ -121,15 +96,58 @@ $(document).ready(function(){
 			}
 		}
 
+		function changeText(element, string) {
+			return $(element).text(string);
+		}
+
+		function addListItem(element, content) {
+			return $(element).append('<li class="guessListItem">' + content + '</li>');
+		}
+
+		function addOne(number) {
+			number = parseInt(number);
+			return number + 1;
+		}
+
+
+  /*--- VALIDATION FUNCTION ---*/
+
+		/** ---COMPLETED---
+			 * validate() ensures user's guess is a valid
+			 * 		option.
+			 * parameter: userGuess, correctAnswer
+			 * returns FALSE if user's guess is not a valid option;
+			 * runs the game if user's guess is a valid option
+			 */
+			function validate(guess, correctAnswer) {
+				if(testGuess(guess) === false) {
+					alert('Please choose a valid number');
+				} else if (checkGuessListFor(guess) === false) {
+					alert('You\'ve already chosen this number! Please try a new number');
+				} else if (checkGuessListFor(correctAnswer) === false) {
+					alert('You\'ve already guessed the correct answer! ' +
+						'Click \'New Game\' to play again');
+				} else {
+			 		changeText('h2#feedback', guessFeedback(guess, correctAnswer));
+			 		addListItem('ul#guessList', guess);
+					changeText('span#count', addOne($('span#count').text()));
+				}
+			}
+
+			validate(6, 20);
+
+	/*--- USER CLICKS TO SUBMIT GUESS ---*/
+
+
+
+
 		/** ---TO DO---
 		 * guessingGame() runs the guessing Game
 		 */
 		function guessingGame(userGuess, correctAnswer) {
 			//Checks guess for validity using validateGuess()
-			//changes h2#feedback to reflect guessEvaluate() value;
-			//appends the userGuess to ul#guessList 
 			//adds 1 to counter (span#count)
-	  };
+	  }
 
   /** ---TO DO---
 	 * Starts New Game
@@ -140,13 +158,13 @@ $(document).ready(function(){
 	  /*--- Sets h2#feedback to 'Make your Guess!' ---*/
 	  /*--- Sets span#count to '0' ---*/
 	  /*--- Clears ul#guesslist of previous guesses ---*/	
-		}; 
+		} 
 		/*--- randomNumber function 
 				* stored in a variable for reuse 
 		---*/
 	  /*---Runs the guessing Game ---*/
 	  /*--- Freezes Guessing Game if user has already won ---*/
-	};
+	}
 });
 
 
