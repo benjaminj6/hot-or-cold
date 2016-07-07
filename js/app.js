@@ -101,7 +101,7 @@ $(document).ready(function(){
 		}
 
 		function addListItem(element, content) {
-			return $(element).append('<li class="guessListItem">' + content + '</li>');
+			$(element).append('<li class="guessListItem">' + content + '</li>');
 		}
 
 		function addOne(number) {
@@ -119,26 +119,27 @@ $(document).ready(function(){
 			 * returns FALSE if user's guess is not a valid option;
 			 * runs the game if user's guess is a valid option
 			 */
-			function validate(guess, correctAnswer) {
-				if(testGuess(guess) === false) {
-					alert('Please choose a valid number');
-				} else if (checkGuessListFor(guess) === false) {
-					alert('You\'ve already chosen this number! Please try a new number');
-				} else if (checkGuessListFor(correctAnswer) === false) {
-					alert('You\'ve already guessed the correct answer! ' +
-						'Click \'New Game\' to play again');
-				} else {
-			 		changeText('h2#feedback', guessFeedback(guess, correctAnswer));
-			 		addListItem('ul#guessList', guess);
-					changeText('span#count', addOne($('span#count').text()));
-				}
+		function validate(guess, correctAnswer) {
+			if(testGuess(guess) === false) {
+				alert('Please choose a valid number');
+			} else if (checkGuessListFor(guess) === false) {
+				alert('You\'ve already chosen this number! Please try a new number');
+			} else if (checkGuessListFor(correctAnswer) === false) {
+				alert('You\'ve already guessed the correct answer! ' +
+					'Click \'New Game\' to play again');
+			} else {
+		 		changeText('h2#feedback', guessFeedback(guess, correctAnswer));
+		 		addListItem('ul#guessList', guess);
+				changeText('span#count', addOne($('span#count').text()));
 			}
-
-			validate(6, 20);
+		}
 
 	/*--- USER CLICKS TO SUBMIT GUESS ---*/
-
-
+		
+		$('#guessButton').click(function(event) {
+			validate($('#userGuess').val(), 30);
+			$('#userGuess').val('');
+		});
 
 
 		/** ---TO DO---
