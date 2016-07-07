@@ -12,7 +12,7 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});	
 
-	/*--- RUNS NEWGAME FUNCTION WHEN DOCUMENT LOADS ---*/	
+	/*--- RUNS GAME WHEN DOCUMENT LOADS ---*/	
 		
     runGame();   
 
@@ -21,7 +21,7 @@ $(document).ready(function(){
 		function runGame() {
 
 			//--- RESETS VALUES TO DEFAULT
-			// resetValues();
+			// newGame();
 
 			//--- CHOOSES A RANDOM NUMBER AS THE ANSWER
 			var correctAnswer = randomNumber();
@@ -30,7 +30,7 @@ $(document).ready(function(){
 			// RESETS GAME TO DEFAULTS WHEN USER CLICKS 'NEW GAME'  
 
 			$('nav .new').click(function() {
-				resetValues();
+				newGame();
 				correctAnswer = randomNumber();
 				console.log(correctAnswer);
 			});
@@ -45,7 +45,7 @@ $(document).ready(function(){
 
 	/*--- RESET VALUES FUNCTION ---*/
 
-		function resetValues() {
+		function newGame() {
 			$('h2#feedback').text('Make Your Guess!');
 			$('#guessList').empty();
 			$('#count').text(0);
@@ -138,11 +138,7 @@ $(document).ready(function(){
 		 		addListItem('ul#guessList', guess);
 				changeText('span#count', addOne($('span#count').text()));
 			}
-
-
 		}
 
-
 });
-
 
