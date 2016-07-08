@@ -94,17 +94,17 @@ $(document).ready(function(){
 			var guessDifference = Math.abs(correctAnswer - guess);
 
 			if(guessDifference === 0 ) {
-				return 'You won. Click "New Game" to play again ';
+				$('#feedback').text('You won. Click "New Game" to play again ');
 			} else if (guessDifference < 5) {
-				return 'Very hot';
+				$('#feedback').text('Very hot');
 			} else if (guessDifference < 10) {
-				return 'Hot';
+				$('#feedback').text('Hot');
 			} else if (guessDifference < 20) {
-				return 'Kinda hot';
+				$('#feedback').text('Kinda hot');
 			} else if (guessDifference < 50) {
-				return 'Cold';
+				$('#feedback').text('Cold');
 			} else {
-				return 'Very Cold';
+				$('#feedback').text('Very Cold');
 			}
 		}
 
@@ -132,7 +132,7 @@ $(document).ready(function(){
 				$('#feedback').text('You\'ve already guessed the correct answer! ' +
 					'Click \'New Game\' to play again');
 			} else {
-		 		changeText('h2#feedback', guessFeedback(guess, correctAnswer));
+		 		guessFeedback(guess, correctAnswer);
 		 		addListItem('ul#guessList', guess);
 				changeText('span#count', addOne($('span#count').text()));
 			}
