@@ -125,11 +125,11 @@ $(document).ready(function(){
 
 		function validate(guess, correctAnswer) {
 			if(testGuess(guess) === false) {
-				alert('Please choose a valid number');
+				$('#feedback').text('Please choose a valid number');
 			} else if (checkGuessListFor(guess) === false) {
-				alert('You\'ve already chosen this number! Please try a new number');
+				$('#feedback').text('You\'ve already chosen this number! Please try a new number');
 			} else if (checkGuessListFor(correctAnswer) === false) {
-				alert('You\'ve already guessed the correct answer! ' +
+				$('#feedback').text('You\'ve already guessed the correct answer! ' +
 					'Click \'New Game\' to play again');
 			} else {
 		 		changeText('h2#feedback', guessFeedback(guess, correctAnswer));
@@ -139,4 +139,3 @@ $(document).ready(function(){
 		}
 
 });
-
