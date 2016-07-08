@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 	
 	/*--- Display information modal box ---*/
@@ -139,4 +138,3 @@ $(document).ready(function(){
 		}
 
 });
-
