@@ -12,10 +12,6 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});	
 
-	/*--- RUNS GAME WHEN DOCUMENT LOADS ---*/	
-		
-    runGame();   
-
 	/*--- RUN GAME FUNCTION ---*/
 
 		function runGame() {
@@ -25,7 +21,7 @@ $(document).ready(function(){
 
 			//--- CHOOSES A RANDOM NUMBER AS THE ANSWER
 			var correctAnswer = randomNumber();
-			console.log(correctAnswer);
+			console.log('The answer is ' + correctAnswer);
 			
 			// RESETS GAME TO DEFAULTS WHEN USER CLICKS 'NEW GAME'  
 
@@ -42,6 +38,10 @@ $(document).ready(function(){
 			});	
 
 		}
+
+	/*--- RUNS GAME WHEN DOCUMENT LOADS ---*/	
+		
+    runGame();   
 
 	/*--- RESET VALUES FUNCTION ---*/
 
@@ -124,8 +124,6 @@ $(document).ready(function(){
   /*--- VALIDATION FUNCTION ---*/
 
 		function validate(guess, correctAnswer) {
-			console.log(testGuess(guess));
-			console.log(guess);
 			if(testGuess(guess) === false) {
 				alert('Please choose a valid number');
 			} else if (checkGuessListFor(guess) === false) {
