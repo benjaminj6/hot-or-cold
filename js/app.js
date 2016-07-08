@@ -12,6 +12,10 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});	
 
+	/*--- RUNS GAME WHEN DOCUMENT LOADS ---*/	
+		
+    runGame();   
+
 	/*--- RUN GAME FUNCTION ---*/
 
 		function runGame() {
@@ -33,15 +37,18 @@ $(document).ready(function(){
 
 			//--- USER CLICKS TO SUBMIT GUESS 
 			$('#guessButton').click(function(event) {
-				validate(($('#userGuess').val()), correctAnswer);
-				$('#userGuess').val('');
+				var guess = $('#userGuess').val();
+
+				if (validate(($('#userGuess').val()), correctAnswer) === true) {
+					guessFeedback(guess, correctAnswer);
+		 			addListItem('ul#guessList', guess);
+					increaseCounter();
+				}
+				
+				$('#userGuess').val('');	
 			});	
 
 		}
-
-	/*--- RUNS GAME WHEN DOCUMENT LOADS ---*/	
-		
-    runGame();   
 
 	/*--- RESET VALUES FUNCTION ---*/
 
@@ -116,9 +123,10 @@ $(document).ready(function(){
 			$(element).append('<li class="guessListItem">' + content + '</li>');
 		}
 
-		function addOne(number) {
-			number = parseInt(number);
-			return number + 1;
+		function increaseCounter() {
+			count = parseInt($('#count').text()) + 1;
+			$('#count').text(count);
+			console.log(count);
 		}
 
   /*--- VALIDATION FUNCTION ---*/
@@ -132,9 +140,7 @@ $(document).ready(function(){
 				$('#feedback').text('You\'ve already guessed the correct answer! ' +
 					'Click \'New Game\' to play again');
 			} else {
-		 		guessFeedback(guess, correctAnswer);
-		 		addListItem('ul#guessList', guess);
-				changeText('span#count', addOne($('span#count').text()));
+				return true;
 			}
 		}
 
