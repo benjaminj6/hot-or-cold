@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-	
+'use strict';
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
@@ -75,7 +75,7 @@ $(document).ready(function(){
 	/*--- TESTS TO BE RUN IN VALIDATE FUNCTION ---*/
 
 		function checkGuessListFor(number) {
-			guessListItems = [];
+			var guessListItems = [];
 			
 			$('.guessListItem').each(function() {
 				guessListItems.push( $(this).text() );
@@ -126,7 +126,7 @@ $(document).ready(function(){
 		}
 
 		function increaseCounter() {
-			count = parseInt($('#count').text()) + 1;
+			var count = parseInt($('#count').text()) + 1;
 			$('#count').text(count);
 		}
 
