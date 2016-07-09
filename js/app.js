@@ -17,18 +17,13 @@ $(document).ready(function(){
     runGame();   
 
 	/*--- RUN GAME FUNCTION ---*/
-
 		function runGame() {
-
-			//--- RESETS VALUES TO DEFAULT
-			// newGame();
 
 			//--- CHOOSES A RANDOM NUMBER AS THE ANSWER
 			var correctAnswer = randomNumber();
 			console.log('The answer is ' + correctAnswer);
 			
 			// RESETS GAME TO DEFAULTS WHEN USER CLICKS 'NEW GAME'  
-
 			$('nav .new').click(function() {
 				newGame();
 				correctAnswer = randomNumber();
@@ -50,8 +45,12 @@ $(document).ready(function(){
 
 		}
 
-	/*--- RESET VALUES FUNCTION ---*/
+  /*--- RANDOM NUMBER GENERATOR ---*/
+		function randomNumber() {
+			return Math.ceil(Math.random() * 100);
+		}
 
+	/*--- NEW GAME FUNCTION ---*/
 		function newGame() {
 			$('h2#feedback').text('Make Your Guess!');
 			$('#guessList').empty();
@@ -59,10 +58,18 @@ $(document).ready(function(){
 			return randomNumber();
 		}
 
-  /*--- RANDOM NUMBER GENERATOR ---*/
-
-		function randomNumber() {
-			return Math.ceil(Math.random() * 100);
+  /*--- VALIDATION FUNCTION ---*/
+		function validate(guess, correctAnswer) {
+			if(testGuess(guess) === false) {
+				$('#feedback').text('Please choose a valid number');
+			} else if (checkGuessListFor(guess) === false) {
+				$('#feedback').text('You\'ve already chosen this number! Please try a new number');
+			} else if (checkGuessListFor(correctAnswer) === false) {
+				$('#feedback').text('You\'ve already guessed the correct answer! ' +
+					'Click \'New Game\' to play again');
+			} else {
+				return true;
+			}
 		}
 
 	/*--- TESTS TO BE RUN IN VALIDATE FUNCTION ---*/
@@ -83,7 +90,7 @@ $(document).ready(function(){
 
 			return true;
 		}
-		
+
 		function testGuess(guess) {
 			guess = parseFloat(guess);
 
@@ -94,9 +101,8 @@ $(document).ready(function(){
 				return true; 
 			}
 		}
-
+		
 	/*--- FUNCTIONS THAT RUN IF ANSWER PASSES VALIDATION ---*/
-
 		function guessFeedback(guess, correctAnswer) {
 			var guessDifference = Math.abs(correctAnswer - guess);
 
@@ -115,10 +121,6 @@ $(document).ready(function(){
 			}
 		}
 
-		function changeText(element, string) {
-			return $(element).text(string);
-		}
-
 		function addListItem(element, content) {
 			$(element).append('<li class="guessListItem">' + content + '</li>');
 		}
@@ -126,22 +128,6 @@ $(document).ready(function(){
 		function increaseCounter() {
 			count = parseInt($('#count').text()) + 1;
 			$('#count').text(count);
-			console.log(count);
-		}
-
-  /*--- VALIDATION FUNCTION ---*/
-
-		function validate(guess, correctAnswer) {
-			if(testGuess(guess) === false) {
-				$('#feedback').text('Please choose a valid number');
-			} else if (checkGuessListFor(guess) === false) {
-				$('#feedback').text('You\'ve already chosen this number! Please try a new number');
-			} else if (checkGuessListFor(correctAnswer) === false) {
-				$('#feedback').text('You\'ve already guessed the correct answer! ' +
-					'Click \'New Game\' to play again');
-			} else {
-				return true;
-			}
 		}
 
 });
