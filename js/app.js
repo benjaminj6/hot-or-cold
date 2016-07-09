@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+'use strict';
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
     	$(".overlay").fadeIn(1000);
@@ -11,19 +11,18 @@ $(document).ready(function(){
   		$(".overlay").fadeOut(1000);
   	});	
 
+	/*--- RUNS GAME WHEN DOCUMENT LOADS ---*/	
+		
+    runGame();   
+
 	/*--- RUN GAME FUNCTION ---*/
-
 		function runGame() {
-
-			//--- RESETS VALUES TO DEFAULT
-			// newGame();
 
 			//--- CHOOSES A RANDOM NUMBER AS THE ANSWER
 			var correctAnswer = randomNumber();
 			console.log('The answer is ' + correctAnswer);
 			
 			// RESETS GAME TO DEFAULTS WHEN USER CLICKS 'NEW GAME'  
-
 			$('nav .new').click(function() {
 				newGame();
 				correctAnswer = randomNumber();
@@ -32,18 +31,25 @@ $(document).ready(function(){
 
 			//--- USER CLICKS TO SUBMIT GUESS 
 			$('#guessButton').click(function(event) {
-				validate(($('#userGuess').val()), correctAnswer);
-				$('#userGuess').val('');
+				var guess = $('#userGuess').val();
+
+				if (validate(($('#userGuess').val()), correctAnswer) === true) {
+					guessFeedback(guess, correctAnswer);
+		 			addListItem('ul#guessList', guess);
+					increaseCounter();
+				}
+				
+				$('#userGuess').val('');	
 			});	
 
 		}
 
-	/*--- RUNS GAME WHEN DOCUMENT LOADS ---*/	
-		
-    runGame();   
+  /*--- RANDOM NUMBER GENERATOR ---*/
+		function randomNumber() {
+			return Math.ceil(Math.random() * 100);
+		}
 
-	/*--- RESET VALUES FUNCTION ---*/
-
+	/*--- NEW GAME FUNCTION ---*/
 		function newGame() {
 			$('h2#feedback').text('Make Your Guess!');
 			$('#guessList').empty();
@@ -51,16 +57,24 @@ $(document).ready(function(){
 			return randomNumber();
 		}
 
-  /*--- RANDOM NUMBER GENERATOR ---*/
-
-		function randomNumber() {
-			return Math.ceil(Math.random() * 100);
+  /*--- VALIDATION FUNCTION ---*/
+		function validate(guess, correctAnswer) {
+			if(testGuess(guess) === false) {
+				$('#feedback').text('Please choose a valid number');
+			} else if (checkGuessListFor(guess) === false) {
+				$('#feedback').text('You\'ve already chosen this number! Please try a new number');
+			} else if (checkGuessListFor(correctAnswer) === false) {
+				$('#feedback').text('You\'ve already guessed the correct answer! ' +
+					'Click \'New Game\' to play again');
+			} else {
+				return true;
+			}
 		}
 
 	/*--- TESTS TO BE RUN IN VALIDATE FUNCTION ---*/
 
 		function checkGuessListFor(number) {
-			guessListItems = [];
+			var guessListItems = [];
 			
 			$('.guessListItem').each(function() {
 				guessListItems.push( $(this).text() );
@@ -75,7 +89,7 @@ $(document).ready(function(){
 
 			return true;
 		}
-		
+
 		function testGuess(guess) {
 			guess = parseFloat(guess);
 
@@ -86,40 +100,36 @@ $(document).ready(function(){
 				return true; 
 			}
 		}
-
+		
 	/*--- FUNCTIONS THAT RUN IF ANSWER PASSES VALIDATION ---*/
-
 		function guessFeedback(guess, correctAnswer) {
 			var guessDifference = Math.abs(correctAnswer - guess);
 
 			if(guessDifference === 0 ) {
-				return 'You won. Click "New Game" to play again ';
+				$('#feedback').text('You won. Click "New Game" to play again ');
 			} else if (guessDifference < 5) {
-				return 'Very hot';
+				$('#feedback').text('Very hot');
 			} else if (guessDifference < 10) {
-				return 'Hot';
+				$('#feedback').text('Hot');
 			} else if (guessDifference < 20) {
-				return 'Kinda hot';
+				$('#feedback').text('Kinda hot');
 			} else if (guessDifference < 50) {
-				return 'Cold';
+				$('#feedback').text('Cold');
 			} else {
-				return 'Very Cold';
+				$('#feedback').text('Very Cold');
 			}
-		}
-
-		function changeText(element, string) {
-			return $(element).text(string);
 		}
 
 		function addListItem(element, content) {
 			$(element).append('<li class="guessListItem">' + content + '</li>');
 		}
 
-		function addOne(number) {
-			number = parseInt(number);
-			return number + 1;
+		function increaseCounter() {
+			var count = parseInt($('#count').text()) + 1;
+			$('#count').text(count);
 		}
 
+<<<<<<< HEAD
   /*--- VALIDATION FUNCTION ---*/
 
 		function validate(guess, correctAnswer) {
@@ -138,3 +148,6 @@ $(document).ready(function(){
 		}
 
 });
+=======
+});
+>>>>>>> master
