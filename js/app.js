@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 'use strict';
 	/*--- Display information modal box ---*/
@@ -129,25 +130,4 @@ $(document).ready(function(){
 			$('#count').text(count);
 		}
 
-
-  /*--- VALIDATION FUNCTION ---*/
-
-		function validate(guess, correctAnswer) {
-			if(testGuess(guess) === false) {
-				alert('Please choose a valid number');
-			} else if (checkGuessListFor(guess) === false) {
-				alert('You\'ve already chosen this number! Please try a new number');
-			} else if (checkGuessListFor(correctAnswer) === false) {
-				alert('You\'ve already guessed the correct answer! ' +
-					'Click \'New Game\' to play again');
-			} else {
-		 		changeText('h2#feedback', guessFeedback(guess, correctAnswer));
-		 		addListItem('ul#guessList', guess);
-				changeText('span#count', addOne($('span#count').text()));
-			}
-		}
-
 });
-
-});
-
