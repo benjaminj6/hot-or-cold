@@ -129,7 +129,7 @@ $(document).ready(function(){
 			$('#count').text(count);
 		}
 
-<<<<<<< HEAD
+
   /*--- VALIDATION FUNCTION ---*/
 
 		function validate(guess, correctAnswer) {
@@ -148,6 +148,6 @@ $(document).ready(function(){
 		}
 
 });
-=======
+
 });
->>>>>>> master
+
